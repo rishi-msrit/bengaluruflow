@@ -89,7 +89,7 @@ def load_lstm_model():
         return None, None, None
     from src.models.lstm_forecaster import LSTMForecaster
 
-    ckpt         = torch.load(LSTM_CKPT, map_location="cpu")
+    ckpt         = torch.load(LSTM_CKPT, map_location="cpu", weights_only=False)
     num_features = ckpt["num_features"]
     feature_cols = ckpt["feature_cols"]
     model = LSTMForecaster(
@@ -112,7 +112,7 @@ def load_autoencoder():
         return None, None, None
     from src.models.autoencoder import LSTMAutoencoder
 
-    ckpt         = torch.load(AE_CKPT, map_location="cpu")
+    ckpt         = torch.load(AE_CKPT, map_location="cpu", weights_only=False)
     num_features = ckpt["num_features"]
     feature_cols = ckpt["feature_cols"]
     model = LSTMAutoencoder(
@@ -138,11 +138,13 @@ def load_scaler_and_weather():
 
 
 @st.cache_data
-def load_comparison_csv() -> pd.DataFrame | None:
-    """Load and cache the model comparison CSV."""
-    if not COMPARISON_CSV.exists():
+def load_comparison_csv():
+    # also check for _new variant in case the original was locked during write
+    alt = COMPARISON_CSV.parent / "model_comparison_new.csv"
+    path = COMPARISON_CSV if COMPARISON_CSV.exists() else (alt if alt.exists() else None)
+    if path is None:
         return None
-    return pd.read_csv(COMPARISON_CSV)
+    return pd.read_csv(path)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
