@@ -1,7 +1,7 @@
 # BengaluruFlow 🚦
 ### Multi-Target Traffic Forecasting and Anomaly Detection on the Bangalore Traffic Pulse Dataset
 
-> *"Bangalore adds 1,000 new vehicles to its roads every single day. The city's traffic management systems are still largely reactive — they respond to congestion after it happens. What if we could predict it before it does?"*
+> *Bangalore adds 1,000 new vehicles to its roads every single day. The city's traffic management systems are still largely reactive — they respond to congestion after it happens. What if we could predict it before it does?*
 
 ---
 ## LIVE Streamlit website to view the result: https://bengaluruflow.streamlit.app/
